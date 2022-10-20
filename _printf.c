@@ -30,20 +30,19 @@ int run_printf(const char *format, va_list args, buffer_t *output)
 	char tmp;
 	unsigned char flags, len;
 	unsigned int (*f)(va_list, buffer_t *,
-			unsigned char, int, int, unsigned char);
+		unsigned char, int, int, unsigned char);
 
 	for (i = 0; *(format + i); i++)
 	{
 		len = 0;
-    if (*(format + i) == '%')
+		if (*(format + i) == '%')
 		{
 			tmp = 0;
 			flags = handle_flags(format + i + 1, &tmp);
 			wid = handle_width(args, format + i + tmp + 1, &tmp);
-			prec = handle_precision(args, format + i + tmp + 1,
-					&tmp);
+			prec = handle_precision(args, format + i + tmp + 1, &tmp);
 			len = handle_length(format + i + tmp + 1, &tmp);
-      
+
 			f = handle_specifiers(format + i + tmp + 1);
 			if (f != NULL)
 			{
